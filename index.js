@@ -4,6 +4,7 @@ const notiDiv = document.getElementById('noti')
 const suggestionsDiv = document.getElementById('suggestions')
 const resultsDiv = document.getElementById('results')
 const serverUrl = 'http://localhost:8080'
+const debounceTimeout = 200
 
 async function search(e, input) {
     clearNoti()
@@ -24,7 +25,10 @@ async function search(e, input) {
 
         const json = await res.json()
         if (!json.match) {
-            return showSuggestions(json.related)
+            showSuggestions(json.related)
+            clearResult()
+            clearRelated()
+            return
         }
 
         showResult(json.match)
@@ -33,23 +37,18 @@ async function search(e, input) {
         }
 
         clearSuggestions()
-        clearInput()
     } catch (err) {
         console.error(err)
         showNoti("Something's wrong. Please try again later.")
     }
 }
 
-function clearInput() {
-    searchInput.value = ''
-}
-
 function showNoti(msg) {
-    resultsDiv.notiDiv = `<h3>${msg}</h3>`
+    notiDiv.innerHTML = `<h3>${msg}</h3>`
 }
 
 function clearNoti() {
-    resultsDiv.notiDiv = ''
+    notiDiv.innerHTML = ''
 }
 
 function showResult(item) {
@@ -66,15 +65,23 @@ function showResult(item) {
     `
 }
 
+function clearResult() {
+    resultsDiv.innerHTML = ''
+}
+
 function showRelated(items, skipped) {
     resultsDiv.innerHTML += `
         <div class="related-words">
-            <h5>Related words:</h5>
+            <h3>Related words:</h3>
             ${items.map(e => `
                 ${e.word === skipped ? '' : `<div class="related-word" onclick="search(null, '${e.word}')">${e.word}</div>`}
             `).join('')}
         </div>
     `
+}
+
+function clearRelated() {
+    resultsDiv.innerHTML = ''
 }
 
 function showSuggestions(items) {
@@ -89,4 +96,10 @@ function clearSuggestions() {
     suggestionsDiv.innerHTML = ''
 }
 
+let timeout
+searchInput.addEventListener('keydown', () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(search, debounceTimeout)
+})
+searchInput.addEventListener('focusout', clearSuggestions)
 searchBtn.addEventListener('click', search)
