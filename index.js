@@ -101,5 +101,4 @@ searchInput.addEventListener('keydown', () => {
     clearTimeout(timeout)
     timeout = setTimeout(search, debounceTimeout)
 })
-searchInput.addEventListener('focusout', clearSuggestions)
 searchBtn.addEventListener('click', search)
