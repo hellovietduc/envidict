@@ -23,18 +23,20 @@ func ParseFile(db *AVLTree) {
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 		if len(line) == 0 {
-			if curWord != nil {
-				if curDef != nil {
-					if curDesc != nil {
-						curDef.Descriptions = append(curDef.Descriptions, curDesc)
-					}
-					curWord.Definitions = append(curWord.Definitions, curDef)
-				}
-				db.Insert(curWord.Spelling, curWord)
-				curWord = nil
-				curDef = nil
-				curDesc = nil
+			if curWord == nil {
+				continue
 			}
+
+			if curDef != nil {
+				if curDesc != nil {
+					curDef.Descriptions = append(curDef.Descriptions, curDesc)
+				}
+				curWord.Definitions = append(curWord.Definitions, curDef)
+			}
+			db.Insert(curWord.Spelling, curWord)
+			curWord = nil
+			curDef = nil
+			curDesc = nil
 			continue
 		}
 
