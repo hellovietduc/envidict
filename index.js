@@ -53,14 +53,18 @@ function clearNoti() {
 
 function showResult(item) {
     resultsDiv.innerHTML = `
-        <h3 class="word">${item.word}</h3>
+        <h2 class="word">${item.word}</h2>
         <div class="word-pronunciation">${item.pronunciation}</div>
         ${item.definitions.map(def => `
-            ${def.kind ? `<div class="word-kind">${def.kind}</div>` : ''}
-            ${def.descriptions.map(desc => `
-                ${desc.meaning ? `<div class="word-meaning">${desc.meaning}</div>` : ''}
-                ${desc.example ? `<div class="word-example">${desc.example}</div>` : ''}
+            <div class="word-definition">
+                ${def.kind ? `<div class="word-kind">${def.kind}</div>` : ''}
+                ${def.descriptions.map(desc => `
+                    <div class="word-description">
+                        ${desc.meaning ? `<div class="word-meaning">${desc.meaning}</div>` : ''}
+                        ${desc.example ? `<div class="word-example">Example: ${desc.example}</div>` : ''}
+                    </div>
             `).join('')}
+            </div>
         `).join('')}
     `
 }
@@ -74,7 +78,7 @@ function showRelated(items, skipped) {
         <div class="related-words">
             <h3>Related words:</h3>
             ${items.map(e => `
-                ${e.word === skipped ? '' : `<div class="related-word" onclick="search(null, '${e.word}')">${e.word}</div>`}
+                ${e.word === skipped ? '' : `<span class="related-word" onclick="search(null, '${e.word}')">${e.word}</span>`}
             `).join('')}
         </div>
     `
@@ -87,7 +91,7 @@ function clearRelated() {
 function showSuggestions(items) {
     suggestionsDiv.innerHTML = `
         ${items.map(e => `
-            <div class="suggested-word" onclick="search(null, '${e.word}')">${e.word}</div>
+            <span class="suggested-word" onclick="search(null, '${e.word}')">${e.word}</span>
         `).join('')}
     `
 }

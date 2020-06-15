@@ -1,9 +1,56 @@
 .container {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+    position: relative;
+    min-height: 100vh;
+}
+
+.content {
+    padding-bottom: 1rem;
 }
 
 .header, .search-bar, .suggestions, .noti, .footer {
     text-align: center;
+}
+
+.search-bar input[type="text"], .search-bar button {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.search-bar input[type="text"] {
+    color: #444;
+    font-stretch: wider;
+}
+
+.suggestions {
+    margin-top: 10px;
+}
+
+.suggestions, .related-words {
+    word-spacing: 5px;
+}
+
+.suggested-word, .related-word {
+    color: #555;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.related-words {
+    margin-bottom: 20px;
+}
+
+.related-words h3 {
+    word-spacing: normal;
+    margin-bottom: 0;
+}
+
+.noti {
+    color: #999;
 }
 
 .results {
@@ -11,8 +58,26 @@
     margin-right: 20%;
 }
 
+.word-definition {
+    margin: 20px auto;
+}
+
+.word-kind {
+    font-style: italic;
+}
+
+.word-description {
+    margin: 10px 0 10px 10px;
+}
+
+.word-example {
+    color: #444;
+}
+
 .footer {
-    position: fixed;
-    bottom: 5px;
     width: 100%;
+    height: 1rem;
+    position: absolute;
+    bottom: 0;
+    font-size: 0.8rem;
 }
