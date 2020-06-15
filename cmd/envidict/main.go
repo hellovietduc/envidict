@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 	"strconv"
@@ -8,27 +9,45 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/vietduc01100001/envidict/internal"
 )
 
 const (
-	dataFilePath    = "./en-vi-dict.txt"
-	serverAddr      = ":8080"
-	suggestionLimit = 10
+	defaultServerAddr = ":5000"
+	defaultClientAddr = ":3000"
+	staticDir         = "/etc/envidict/static"
+	dataFile          = "/etc/envidict/en-vi-dict.txt"
 )
 
-var db *AVLTree
+var flagClientAddr = flag.String("address", defaultClientAddr, "client address")
+var flagStaticDir = flag.String("static", staticDir, "static directory")
+var flagDataFile = flag.String("data", dataFile, "data file")
+var db *internal.AVLTree
 
 func main() {
-	initDB()
+	flag.Parse()
+	go initDB()
+	go serveClient()
 	startServer()
 }
 
 func initDB() {
-	db = &AVLTree{}
+	db = &internal.AVLTree{}
 	start := time.Now()
-	ParseFile(db)
+	internal.ParseFile(*flagDataFile, db)
 	elapsed := time.Since(start)
 	log.Printf("Build DB took %s", elapsed)
+}
+
+func serveClient() {
+	fs := http.FileServer(http.Dir(*flagStaticDir))
+	http.Handle("/", fs)
+
+	log.Printf("App running on %s", *flagClientAddr)
+	err := http.ListenAndServe(*flagClientAddr, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func startServer() {
@@ -60,7 +79,7 @@ func startServer() {
 
 		limit, err := strconv.Atoi(limitRequested)
 		if err != nil {
-			limit = suggestionLimit
+			limit = 10
 		}
 
 		nodes := db.FuzzySearch(searchTerm, limit)
@@ -71,7 +90,7 @@ func startServer() {
 			return
 		}
 
-		response := make([]*Word, limit)
+		response := make([]*internal.Word, limit)
 		for i, node := range nodes {
 			response[i] = node.Value
 		}
@@ -88,5 +107,5 @@ func startServer() {
 		}
 	})
 
-	r.Run(serverAddr)
+	r.Run(defaultServerAddr)
 }

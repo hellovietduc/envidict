@@ -1,4 +1,4 @@
-package main
+package internal
 
 type Word struct {
 	Spelling      string        `json:"word"`

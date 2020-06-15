@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"bufio"
@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-func ParseFile(db *AVLTree) {
-	file, err := os.Open(dataFilePath)
+func ParseFile(filepath string, db *AVLTree) {
+	file, err := os.Open(filepath)
 	if err != nil {
 		log.Fatal(err)
 	}
