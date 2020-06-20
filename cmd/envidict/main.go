@@ -107,5 +107,8 @@ func startServer() {
 		}
 	})
 
-	r.Run(defaultServerAddr)
+	err := r.Run(defaultServerAddr)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
