@@ -15,7 +15,7 @@
   align="right"
 />
 
-**A lightning fast ⚡ English-Vietnamese dictionary website**
+**A lightning-fast ⚡ English-Vietnamese dictionary website**
 
 - **Fast**: the API is written in Go.
 - **Related words suggestions**: using tree data structure to provide accurate suggestions.
