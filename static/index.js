@@ -3,7 +3,7 @@ const searchBtn = document.getElementById('searchBtn')
 const notiDiv = document.getElementById('noti')
 const suggestionsDiv = document.getElementById('suggestions')
 const resultsDiv = document.getElementById('results')
-const serverUrl = 'http://localhost:5000'
+const serverUrl = 'https://api.vietduc01100001.tech/envidict'
 const debounceTimeout = 200
 
 async function search(e, input) {
