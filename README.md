@@ -1,8 +1,26 @@
-# envidict
+<div align="center">
+    <h1>Envidict 📖</h1>
+</div>
 
-An English-Vietnamese dictionary website
+<p align="center">
+    <a href="https://envidict.vietduc01100001.tech">Website</a>
+</p>
 
-## How to run?
+<h1></h1>
+
+<img
+  src="screenshot.png"
+  alt="Envidict screenshot"
+  width="50%"
+  align="right"
+/>
+
+**A lightning fast ⚡ English-Vietnamese dictionary website**
+
+- **Fast**: the API is written in Go.
+- **Related words suggestions**: using tree data structure to provide accurate suggestions.
+
+## How to run locally?
 
 ```console
 docker build -t envidict .
