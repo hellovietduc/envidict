@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -65,7 +66,7 @@ func startServer() {
 	})
 
 	r.GET("/search", func(c *gin.Context) {
-		searchTerm := c.Query("t")
+		searchTerm := strings.ToLower(c.Query("t"))
 		limitRequested := c.Query("l")
 		exactMatch := c.Query("e")
 
