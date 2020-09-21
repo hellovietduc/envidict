@@ -33,7 +33,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        echo "${{ secrets.GH_PACKAGES_TOKEN }}" | docker login docker.pkg.github.com -u vietduc01100001 --password-stdin
-        IMAGE="docker.pkg.github.com/vietduc01100001/envidict/envidict:$(date +"%y.%m%d.%H%M")"
+        echo "${{ secrets.GH_PACKAGES_TOKEN }}" | docker login docker.pkg.github.com -u hellovietduc --password-stdin
+        IMAGE="docker.pkg.github.com/hellovietduc/envidict/envidict:$(date +"%y.%m%d.%H%M")"
         docker build -t "$IMAGE" .
         docker push "$IMAGE"

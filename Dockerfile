@@ -1,7 +1,7 @@
 # Build stage
 FROM golang:1.14-alpine AS build
 
-WORKDIR /go/src/github.com/vietduc01100001/envidict
+WORKDIR /go/src/github.com/hellovietduc/envidict
 RUN apk add --no-cache git
 
 COPY go.mod go.sum ./

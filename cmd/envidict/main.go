@@ -10,7 +10,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/vietduc01100001/envidict/internal"
+	"github.com/hellovietduc/envidict/internal"
 )
 
 const (

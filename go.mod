@@ -1,4 +1,4 @@
-module github.com/vietduc01100001/envidict
+module github.com/hellovietduc/envidict
 
 go 1.14
 
